@@ -12,19 +12,21 @@ var carray = new Array();
 // Main Function To Start
 function start()
 {
+	// Get context of the canvas, we can use this to paint to the canvas
 	g = $('#canvas')[0].getContext("2d");
 	WIDTH = $("#canvas").width();
 	HEIGHT = $("#canvas").height();
+	// Feel free to change the 80 to a different number, if it is too high there will be lag
 	carray = new Array(80);
 	for (i=0; i<carray.length; i++)
 	{
-		carray[i] = new Circle(Math.random()*WIDTH,Math.random()*HEIGHT);
+		carray[i] = new Square(Math.random() * WIDTH, Math.random() * HEIGHT);
 	}
 	return setInterval(draw, 10);
 }
 
-// Circle Class	
-function Circle(x,y)
+// Square Class	
+function Square(x,y)
 {
 	this.x = x;
 	this.y = y;
@@ -36,8 +38,6 @@ function Circle(x,y)
 	
 	this.draw = function(num)
 	{
-		//g.beginPath();
-		//g.fillStyle = "#2277CC";
 		if (this.collision > 0)
 		{
 			g.fillStyle = "#0055bb";
@@ -47,9 +47,6 @@ function Circle(x,y)
 		{
 			g.fillStyle = "#4499ff";
 		}
-		//g.arc(this.x, this.y, r, 0, Math.PI*2, true);
-		//g.closePath();
-		//g.fill();
 		g.fillRect(this.x-halfR, this.y-halfR, r, r);
 	}
 	
@@ -115,7 +112,7 @@ function Circle(x,y)
 		{
 			if ((vx = carray[i].x-this.x) > - 8 && vx < 8 && (vy = carray[i].y-this.y) > - 8 && vy < 8)
 			{
-				vlen = Math.sqrt(vx*vx+vy*vy);
+				vlen = Math.sqrt(vx * vx + vy * vy);
 				if (vlen < 8 && vlen > 1)
 				{
 					this.collision = 4;
@@ -182,23 +179,23 @@ function draw()
 
 function clear() 
 {
-	g.fillStyle = "#E4E0D7";
+	g.fillStyle = "rgba(200, 200, 255, 0.3)";
 	g.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
 // Use JQuery to wait for document load
 $(document).ready(function()
 {
-	$('#canvas').mousemove(function(e){
+	$('#canvas').mousemove(function(e) {
 		mouseX = e.pageX - $('#canvas').position().left;
 		mouseY = e.pageY - $('#canvas').position().top;
 	});
-	$('#canvas').mouseover(function(e){
+	$('#canvas').mouseover(function(e) {
 		mouseOver = true;
-	}).mouseout(function(e){
+	}).mouseout(function(e) {
 		mouseOver = false;
 	});
-	$('#canvas').mousedown(function(e){
+	$('#canvas').mousedown(function(e) {
 		for (i=0; i<carray.length; i++)	{
 			carray[i].boost();
 		}
