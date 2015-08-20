@@ -17,7 +17,7 @@ function start()
 	WIDTH = $("#canvas").width();
 	HEIGHT = $("#canvas").height();
 	// Feel free to change the 80 to a different number, if it is too high there will be lag
-	carray = new Array(80);
+	carray = new Array(300);
 	for (i=0; i<carray.length; i++)
 	{
 		carray[i] = new Square(Math.random() * WIDTH, Math.random() * HEIGHT);
